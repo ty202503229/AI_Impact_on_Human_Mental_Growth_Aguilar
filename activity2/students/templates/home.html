@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="text-align: center;">
+        <h1>Welcome to the Dashboard</h1>
+        <p>Select a module to manage your records:</p>
+        <br>
+        <a href="{% url 'student_list' %}" class="btn" style="padding: 20px; font-size: 18px; margin: 10px;">🎓 Manage Students</a>
+        <a href="{% url 'book_list' %}" class="btn" style="padding: 20px; font-size: 18px; margin: 10px;">📚 Manage Books</a>
+    </div>
+{% endblock %}

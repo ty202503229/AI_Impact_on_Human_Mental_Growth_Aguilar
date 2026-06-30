@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Prediction History Logs</h4>
+        <span class="badge bg-light text-dark">{{ records.count }} Records Found</span>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Demographic Group</th>
+                        <th>Profession</th>
+                        <th>Weekly AI Hours</th>
+                        <th>Predicted Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record.created_at|date:"M d, Y h:i A" }}</td>
+                        <td>{{ record.demographic }}</td>
+                        <td>{{ record.profession }}</td>
+                        <td>{{ record.weekly_hours }} hrs</td>
+                        <td>
+                            {% if record.prediction_result == 'Positive Growth' %}
+                                <span class="badge bg-success">{{ record.prediction_result }}</span>
+                            
+                            {% elif record.prediction_result == 'Stagnant / Moderate' %}
+                                <span class="badge bg-warning text-dark">{{ record.prediction_result }}</span>
+                            
+                            {% elif record.prediction_result == 'Cognitive Decline Risk' %}
+                                <span class="badge bg-danger">{{ record.prediction_result }}</span>
+                            
+                            {% else %}
+                                <span class="badge bg-secondary">{{ record.prediction_result }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">
+                            No prediction history found. Run a prediction to see logs here.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
